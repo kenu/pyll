@@ -105,6 +105,3 @@ chmod +x scripts/deploy-pyll.sh
 
 MIT License
 
-## 문의
-
-문제나 피드백이 있으면 이슈를 등록해주세요.
