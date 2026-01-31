@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            background: #337ab7;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .complete {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .actions a {
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        .update {
+            background: #5cb85c;
+        }
+        .delete {
+            background: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <form action="{{ url_for('add') }}" method="post">
+            <input type="text" name="todoitem" placeholder="Add new todo...">
+            <input type="submit" value="Add">
+        </form>
+        <ul>
+            {% for todo in todos %}
+                <li {% if todo.complete %}class="complete"{% endif %}>
+                    {{ todo.text }}
+                    <div class="actions">
+                        <a href="{{ url_for('update', todo_id=todo.id) }}" class="update">
+                            {% if todo.complete %}Undo{% else %}Complete{% endif %}
+                        </a>
+                        <a href="{{ url_for('delete', todo_id=todo.id) }}" class="delete">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
